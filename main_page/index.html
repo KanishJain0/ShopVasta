@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopVasta An Online Shopping Website</title>
+  <link rel="icon" type="image/x-icon" href="logo.jpg" />
+  <link rel="stylesheet" href="main.css" />
+  <script src="main.js"></script>
+</head>
+<body>
+
+  <div class="search">
+    <a href="index.html" id="logo"><img src="logo.jpg" title="Home" /></a>
+    <img id="delivery" src="delivery1.png" title="Enter Your Address" />
+    <a href="../cart/cart.html"><img id="cart" src="cart.png" title="Cart" /></a>
+    <a href="../sign_in_and_Log_in/log_in_updated.html"><img id="profile" src="profile.png" title="Profile" /></a>
+    <form class="search-bar">
+      <input type="text" placeholder="Search..." id="search" />
+      <input type="submit" value="Search" id="submit" />
+    </form>
+    <br />
+    <center>
+      <a id="nav" href="index.html">Home</a>
+      <a id="nav" href="#">Products</a>
+      <a id="nav" href="#">About Us</a>
+      <a id="nav" href="#">Contact</a>
+    </center>
+  </div>
+
+  <div class="slider">
+    <img class="slide" src="../products/sale/gamer.jpg" alt="Slide 1" />
+    <img class="slide" src="../products/sale/shoe.jpg" alt="Slide 2" style="height: 297px;" />
+    <img class="slide" src="../products/sale/watch.jpg" alt="Slide 3" style="height: 297px;" />
+  </div>
+  
+
+  <div class="top_row">
+    <a href="../products/sale/sale_updated.html" id="productlink">
+      <div class="sale_card">
+        <h3>Check Out Whats On Sale Today</h3>
+        <img src="../products/sale/sale.jpg" alt="Sale" />
+      </div>
+    </a>
+
+    <a href="../products/sale/new arrival_updated.html" id="productlink">
+      <div class="sale_card">
+        <h3>New Arrivals !!! Be Sure Check It Out</h3>
+        <img src="../products/project_photos/watch 3/0_main.jpg" alt="New Arrival" />
+      </div>
+    </a>
+
+    <a href="../products/sale/Shoes_updated.html" id="productlink">
+      <div class="sale_card">
+        <h3>Check Out The Offers On These Shoes!!</h3>
+        <img src="../products/sale/Shoes.jpg" alt="Shoes" />
+      </div>
+    </a>
+
+    <a href="../Products/sale/Belts_updated.html" id="productlink">
+      <div class="sale_card">
+        <h3>Want Some Belts? Try These Out !!</h3>
+        <img src="../products/sale/belt.jpg" alt="Belt" />
+      </div>
+    </a>
+
+    <a href="../products/sale/covers_updated.html" id="productlink">
+      <div class="sale_card">
+        <h3>Even Your Phone Needs A Change Of Cloth</h3>
+        <img src="../products/sale/cover.jpg" alt="Covers" />
+      </div>
+    </a>
+  </div>
+
+  <br />
+  <h1 style="text-decoration: underline;">Here's What We Think You Would Like:</h1>
+
+  <a href="../products/product_page/Emporio Armani watch_updated.html" id="productlink">
+    <div class="product-container">
+      <div class="product-card">
+        <img src="../products/project_photos/watch 1/0_Main.jpg" alt="Product 1" />
+        <h3>Emporio Armani</h3>
+        <p>Emporio Armani Giovanni Analog Black Dial Men's Watch-AR11349</p>
+        <p>Rs.27,999</p>
+      </div>
+  </a>
+
+  <a href="../products/product_page/Michael Kors watch_updated.html" id="productlink">
+    <div class="product-card">
+      <img src="../products/project_photos/watch 2/0_main.jpg" alt="Product 2" />
+      <h3>Michael Kors</h3>
+      <p>Michael Kors Watch MK MICHAEL KORS Silicone Stainless Steel Oversized Sport Rhinestone Watch Grey MK6946</p>
+      <p>Rs.24,999</p>
+    </div>
+  </a>
+
+  <a href="../products/product_page/Ray-Ban sunglass_updated.html" id="productlink">
+    <div class="product-card">
+      <img src="../products/project_photos/Sunglasses/rayban.jpg" alt="Product 3" />
+      <h3>Ray-Ban Sunglasses</h3>
+      <p>Ray-Ban Men Gradient Brown Lens Pilot Sunglasses - 0RB3025I014/5158</p>
+      <p>Rs.7,000</p>
+    </div>
+  </a>
+
+  <a href="../products/product_page/dior sunglass_updated.html" id="productlink">
+    <div class="product-card">
+      <img src="../products/project_photos/Sunglasses/dior.jpg" alt="Product 4" />
+      <h3>Dior Sunglasses</h3>
+      <p>Dior Unisex Rectangle Sunglasses Regular Lens DKOEWG003BRW</p>
+      <p>Rs.1,999</p>
+    </div>
+  </a>
+
+  <a href="../products/product_page/Versace Sunglass_updated.html" id="productlink">
+    <div class="product-card">
+      <img src="../products/project_photos/Sunglasses/versace.jpg" alt="Product 5" />
+      <h3>Versace Sunglasses</h3>
+      <p>Versace UV Protection Rectangular Sunglasses for Women</p>
+      <p>Rs.10,499</p>
+    </div>
+  </a>
+
+  <a href="../products/product_page/Prada sunglass_updated.html" id="productlink">
+    <div class="product-card">
+      <img src="../products/project_photos/Sunglasses/prada.jpg" alt="Product 6" />
+      <h3>Prada Sunglasses</h3>
+      <p>Prada 100% UV protected sunglasses for Women | Size- Large | Shape- Hexagon | Model- IRS1113C3SG</p>
+      <p>Rs.15,999</p>
+    </div>
+  </a>
+
+  <div id="form" style="display: none;">
+    <h2>Form</h2>
+    <form>
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" name="name" /><br />
+      <label for="email">Email:</label><br />
+      <input type="email" id="email" name="email" /><br />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+
+  <footer>
+    &copy; 2024 My Shopping Website. All rights reserved.
+  </footer>
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".slide");
+  
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+      });
+    }
+  
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+  
+    showSlide(currentSlide); // show the first slide
+    setInterval(nextSlide, 3000); // change slide every 3 seconds
+  </script>
+  
+</body>
+</html>

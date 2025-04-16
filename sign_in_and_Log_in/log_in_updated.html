@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="../Main Page/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+  <!-- <link rel="stylesheet" href="mail.css"> -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .center {
+      max-width: 400px;
+      margin: 100px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .text input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .forgot, .signup {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .submit {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .submit:hover {
+      background-color: #0056b3;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="center">
+    <h1>Login</h1>
+    <form id="login-form">
+      <div class="text">
+        <input type="email" id="email" placeholder="Email" required>
+      </div>
+      <div class="text">
+        <input type="password" id="password" placeholder="Password" required>
+      </div>
+      <div class="forgot">Forgot Password?</div>
+      <br>
+      <input type="submit" value="Login" class="submit">
+      <br><br>
+      <div class="signup">
+        Not a member? <a href="mail_updated.html">Sign Up</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const { Client, Account } = Appwrite;
+  
+    const client = new Client()
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject('67fdebc30005e7f0036b');
+  
+    const account = new Account(client);
+  
+    const loginForm = document.getElementById('login-form');
+  
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+  
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+  
+      try {
+        await account.deleteSessions().catch(() => {});
+        await account.createEmailSession(email, password);
+  
+        alert('Login successful!');
+        window.location.href = "../Main Page/main_updated.html"; // ✅ Redirect here
+  
+      } catch (error) {
+        alert('Login failed: ' + error.message);
+        console.error(error);
+      }
+    });
+  </script>
+  
+  
+</body>
+</html>

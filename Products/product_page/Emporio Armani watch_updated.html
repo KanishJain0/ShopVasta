@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emporio Armani Giovanni Analog Black Dial Men's Watch-AR11349</title>
+    <link rel="icon" type="image/x-icon" href="../../main_page/logo.jpg">
+    <link rel="stylesheet" href="../../main_page/main.css">
+
+</head>
+<body>
+  <div class="search">
+    <a href="../../main_page/index.html" id="logo"><img src="../../main_page/logo.jpg" title="Home" /></a>
+    <img id="delivery" src="../../main_page/delivery1.png" title="Enter Your Address" />
+    <a href="../../cart/cart.html"><img id="cart" src="../../main_page/cart.png" title="Cart" /></a>
+    <a href="../../sign_in_and_Log_in/log_in_updated.html"><img id="profile" src="../../main_page/profile.png" title="Profile" /></a>
+    <form class="search-bar">
+      <input type="text" placeholder="Search..." id="search" />
+      <input type="submit" value="Search" id="submit" />
+    </form>
+    <br />
+    <center>
+      <a id="nav" href="../../main_page/index.html">Home</a>
+      <a id="nav" href="#">Products</a>
+      <a id="nav" href="#">About Us</a>
+      <a id="nav" href="#">Contact</a>
+    </center>
+  </div>
+    <div style="float: left ; height: 600px;">
+    <!-- <div class="zoom" id="zoom"></div> -->
+    <img src="../project_photos/watch 1/0_Main.jpg" id="ProductImg">
+    </div>
+    <div class="OrderBox">
+        <div id="OrderBox">
+            <h3>₹27,999</h3>
+        Free Delivery Within 5 Days Of Ordering If Ordered Today
+        <br><br>
+        <a href="#">
+        <img src="../product_page/Location.png" id="location">
+        Enter Delivery Address</a>
+        <br><br>
+        <h4 class="stock">In Stock</h4>
+        Ships From : ShopVista
+        <br><br>
+        Quantity:<input type="number" value="1" min="1" id="Quantity">
+        <br><br><br>
+        <input type="submit"
+            value="Add To Cart"
+            class="buy"
+            id="AddToCart"
+            data-id="armani01"
+            data-name="Emporio Armani Giovanni Analog Black Dial Men's Watch"
+            data-price="27999"
+            data-image="../Products/Product Photos/watch 1/0 Main.jpg"
+        />
+        <br><br>
+        <input type="submit" value="Buy Now" class="buy" id="BuyNow">
+        </div>
+    </div>
+    <div class="ProductInfo">
+        <h2>Emporio Armani Giovanni Analog Black Dial Men's Watch-AR11349<br>
+            <h5>Brand:<a href="#">Emporio Armani</h4></a><hr>Rs.27,999<br>
+            <h5>Inclusive of all taxes</h5>
+            <hr>
+            <img src="../product_page/return.jpg" id="ProductIcons" title="Returnable Upto 7 days">
+            <img src="../product_page/Pay On Delivery.png" id="ProductIcons" title="Pay On Delivery">
+            <img src="../product_page/Free Delivery.png" id="ProductIcons" title="Free Delivery">
+            <hr>
+            <h4>About This Product</h4>
+            <ul style="list-style-type:disc; white-space: pre-wrap">
+                <li>Case size: 43mm; Band size: 22mm; quartz movement with chronograph display;
+mineral crystal face;</li>
+                <li>Black plated stainless steel case; black dial with date window</li>
+                <li>Black plated stainless steel bracelet with bracelet butterfly deployant closure;
+interchangeable with Emporio Armani 22mm watch straps</li>
+                <li>Water resistant to 165 feet (50 M): suitable for short periods of recreational swimming and showering,
+but not diving or snorkeling. Circumference - 200+/- 5MM</li>
+                <li>Warranty type:Manufacturer;
+2 Years International Warranty</li>
+            </ul>
+        </h2>
+    </div>
+    <div id="toast" class="toast">Added to cart!</div>
+    <script>
+        document.getElementById("AddToCart").addEventListener("click", function () {
+  const btn = this;
+  const quantity = parseInt(document.getElementById("Quantity").value) || 1;
+
+  const product = {
+    id: btn.getAttribute("data-id"),
+    name: btn.getAttribute("data-name"),
+    price: parseInt(btn.getAttribute("data-price")),
+    image: btn.getAttribute("data-image"),
+    quantity: quantity
+  };
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const existing = cart.find(item => item.id === product.id);
+
+  if (existing) {
+    existing.quantity += quantity;
+  } else {
+    cart.push(product);
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
+}
+
+  showToast("Added to cart!");
+});
+
+      </script>
+      
+
+      
+</body>
+</html>
