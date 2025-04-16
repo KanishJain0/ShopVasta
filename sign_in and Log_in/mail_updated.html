@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="../Main Page/main.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+  <link rel="stylesheet" href="mail.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .center {
+      max-width: 400px;
+      margin: 60px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .text input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .submit {
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .submit:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="center">
+    <h1>Sign Up</h1>
+    <form id="signup-form">
+      <div class="text">
+        <input type="text" id="name" placeholder="Enter Your Full Name" required>
+      </div>
+      <div class="text">
+        <input type="email" id="email" placeholder="Enter Your Email" required>
+      </div>
+      <div class="text">
+        <input type="text" id="address" placeholder="Enter Your Address" required>
+      </div>
+      <div class="text">
+        <input type="password" id="pass1" placeholder="Enter Password" required>
+      </div>
+      <div class="text">
+        <input type="password" id="pass2" placeholder="Re-enter Your Password" required>
+      </div>
+      <input type="submit" value="Create Account" class="submit">
+    </form>
+  </div>
+
+  <script>
+    const { Client, Account, ID, Databases, Permission, Role } = Appwrite;
+  
+    const client = new Client()
+      .setEndpoint('https://cloud.appwrite.io/v1') // or your custom endpoint
+      .setProject('67fdebc30005e7f0036b'); // 🔁 Replace with your actual Project ID
+  
+    const account = new Account(client);
+    const databases = new Databases(client);
+  
+    document.getElementById('signup-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+  
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const address = document.getElementById('address').value;
+      const password = document.getElementById('pass1').value;
+      const confirmPassword = document.getElementById('pass2').value;
+  
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+  
+      try {
+        // 1. Create user account
+        await account.create(ID.unique(), email, password, name);
+  
+        // 2. Log in to get session & userId
+        // 2. Logout if already logged in
+try {
+  await account.deleteSessions(); // remove all active sessions
+} catch (e) {
+  // No active session — safe to ignore
+}
+
+// 3. Create new login session
+const session = await account.createEmailSession(email, password);
+
+        const user = await account.get(); // user.$id gives current user ID
+  
+        // 3. Create document in database
+        await databases.createDocument(
+          '67fded05002eae7541db',           // ✅ Your database ID
+          '67fe3ce80039c6aeea59',           // ✅ Your collection ID
+          ID.unique(),
+          {
+            userId: user.$id,
+            name: name,
+            email: email,
+            address: address
+          }
+        );
+  
+        alert("Account created and user data saved!");
+        window.location.href = "log_in.html"; // redirect after signup
+      } catch (error) {
+        alert("Signup failed: " + error.message);
+        console.error(error);
+      }
+    });
+  </script>
+  
+</body>
+</html>

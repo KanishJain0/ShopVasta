@@ -1,0 +1,69 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: montserrat;
+    background: white;
+    height: 100vh;
+    overflow:hidden;
+}
+.center{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width:700px;
+    background:rgba(195, 238, 241, 0.934);
+    border-radius: 15%;
+    
+}
+.center h1{
+    text-align: center;
+    padding: 0 0 20px 0;
+}
+.center form{
+    padding: 0 40px;
+}
+form .text{
+    position: relative;
+    border-bottom:2px solid black;
+    margin: 30px 0;
+}
+.text input{
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+::placeholder{
+    color: black;
+}
+
+.submit{
+    width: 100%;
+    height:40px;
+    border: 1px solid;
+    color: black;
+    background-color:#77add1;
+    border-radius:25px;
+    font-size: 18px;
+
+}
+
+.forgot{
+    cursor: pointer;
+    text-align: right;
+}
+
+.forgot:hover{
+    text-decoration:underline;
+}
+.submit:hover{
+    cursor:pointer;
+}
+.signup{
+    text-align: center;
+}

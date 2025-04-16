@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart - ShopVasta</title>
+  <link rel="icon" type="image/x-icon" href="../Main Page/logo.jpg">
+  <link rel="stylesheet" href="../Main Page/main.css" />
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .cart-page {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      margin-top: 150px;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    .cart-container {
+      flex: 3;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-item img {
+      width: 100px;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    .cart-item-info {
+      flex-grow: 1;
+      padding: 0 20px;
+    }
+
+    .cart-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .qty-control button {
+      padding: 4px 10px;
+      font-size: 14px;
+    }
+
+    .remove-btn {
+      padding: 5px 10px;
+      background-color: crimson;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .summary {
+      flex: 1;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 12px;
+      height: fit-content;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .summary h3 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .total-price {
+      font-size: 1.2rem;
+      margin: 20px 0;
+    }
+
+    .checkout-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .checkout-button:hover {
+      background-color: #0056b3;
+    }
+
+    #empty-cart {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2rem;
+    }
+
+    .checkout-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Header -->
+  <div class="search">
+    <a href="../Main Page/index.html" id="logo"><img src="../Main Page/logo.jpg" title="Home" /></a>
+    <img id="delivery" src="../Main Page/delivery1.png" title="Enter Your Address" />
+    <a href="../cart/cart.html"><img id="cart" src="../Main Page/cart.png" title="Cart" /></a>
+    <a href="../sign_in and Log_in/log_in_updated.html"><img id="profile" src="../Main Page/profile.png" title="Profile" /></a>
+    <form class="search-bar">
+      <input type="text" placeholder="Search..." id="search" />
+      <input type="submit" value="Search" id="submit" />
+    </form>
+    <br />
+    <center>
+      <a id="nav" href="../Main Page/index.html">Home</a>
+      <a id="nav" href="#">Products</a>
+      <a id="nav" href="#">About Us</a>
+      <a id="nav" href="#">Contact</a>
+    </center>
+  </div>
+
+  <!-- Main Cart Page Layout -->
+  <div class="cart-page">
+    <!-- Left: items -->
+    <div class="cart-container" id="cart-container">
+      <h2>Your Shopping Cart</h2>
+      <div id="cart-items"></div>
+      <div id="empty-cart" style="display: none;">🛒 Your cart is empty.</div>
+    </div>
+  
+    <!-- Right: summary -->
+    <div class="summary">
+      <h3>Summary</h3>
+      <div class="total-price"><strong>Total: Rs. <span id="total">0</span></strong></div>
+      <button class="checkout-button" onclick="window.location.href='../checkout/checkout_updated.html'">
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+
+
+  <footer style="margin-top: 50px;">
+    &copy; 2024 ShopVasta. All rights reserved.
+  </footer>
+
+  <script>
+    function updateQty(btn, delta) {
+      const qtySpan = btn.parentElement.querySelector('.qty');
+      let qty = parseInt(qtySpan.textContent);
+      qty = Math.max(1, qty + delta); // prevent going below 1
+      qtySpan.textContent = qty;
+      calculateTotal();
+    }
+  
+    function removeItem(btn) {
+      const item = btn.closest('.cart-item');
+      item.remove();
+      calculateTotal();
+    }
+  
+    function calculateTotal() {
+      const items = document.querySelectorAll('.cart-item');
+      let total = 0;
+  
+      items.forEach(item => {
+        const qty = parseInt(item.querySelector('.qty').textContent);
+        const price = parseInt(item.dataset.price);
+        total += qty * price;
+      });
+  
+      document.getElementById('total').textContent = total.toLocaleString();
+  
+      const checkoutBtn = document.querySelector('.checkout-button');
+      const isEmpty = items.length === 0;
+  
+      // Show or hide "empty cart" message
+      document.getElementById('empty-cart').style.display = isEmpty ? "block" : "none";
+  
+      // Enable or disable checkout
+      checkoutBtn.disabled = isEmpty;
+    }
+  
+    // Initialize total on page load
+    calculateTotal();
+
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartItemsContainer = document.getElementById("cart-items");
+      const emptyCart = document.getElementById("empty-cart");
+  
+      cartItemsContainer.innerHTML = "";
+  
+      if (cart.length === 0) {
+        emptyCart.style.display = "block";
+        document.querySelector('.checkout-button').disabled = true;
+        document.getElementById('total').textContent = "0";
+        return;
+      }
+  
+      emptyCart.style.display = "none";
+  
+      cart.forEach(product => {
+        const item = document.createElement("div");
+        item.className = "cart-item";
+        item.setAttribute("data-id", product.id);
+        item.setAttribute("data-price", product.price);
+  
+        item.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" />
+          <div class="cart-item-info">
+            <h3>${product.name}</h3>
+            <p>Rs. ${product.price.toLocaleString()}</p>
+          </div>
+          <div class="cart-controls">
+            <div class="qty-control">
+              <button onclick="updateQty(this, -1)">-</button>
+              <span class="qty">${product.quantity}</span>
+              <button onclick="updateQty(this, 1)">+</button>
+            </div>
+            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+          </div>
+        `;
+        cartItemsContainer.appendChild(item);
+      });
+  
+      calculateTotal();
+    }
+  
+    function updateQty(btn, delta) {
+      const item = btn.closest(".cart-item");
+      const id = item.getAttribute("data-id");
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+      const product = cart.find(p => p.id === id);
+      if (!product) return;
+  
+      product.quantity = Math.max(1, product.quantity + delta);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+  
+    function removeItem(btn) {
+      const item = btn.closest(".cart-item");
+      const id = item.getAttribute("data-id");
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+      cart = cart.filter(p => p.id !== id);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+  
+    function calculateTotal() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const total = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
+      document.getElementById("total").textContent = total.toLocaleString();
+      document.querySelector(".checkout-button").disabled = cart.length === 0;
+    }
+  
+    // Run when the page loads
+    renderCart();
+  </script>
+  
+</body>
+</html>
